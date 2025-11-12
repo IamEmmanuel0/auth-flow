@@ -1,0 +1,67 @@
+GET http://127.0.0.1:3000
+
+
+### sign-up
+POST http://127.0.0.1:3000/auth/sign-up
+Content-Type: application/json
+
+{
+  "name": "Emmanuel",
+  "email": "dev@mail.com",
+  "password": "12345678",
+  "age": 18,
+  "field": "anything"
+}
+
+### login
+POST http://127.0.0.1:3000/auth/login
+Content-Type: application/json
+
+{
+  "email": "dev@mail.com",
+  "password": "123456789"
+}
+
+### forgot-password
+POST http://127.0.0.1:3000/auth/forgot-password
+Content-Type: application/json
+
+{
+  "email": "dev@mail.com"
+}
+
+### reset-password
+POST http://127.0.0.1:3000/auth/reset-password
+Content-Type: application/json
+
+{
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTAsImVtYWlsIjoiZGV2QG1haWwuY29tIiwiaWF0IjoxNzYyMzM3NDE5LCJleHAiOjE3NjIzMzgzMTl9.3GHM3VlCKKMW_zpNY-gmDoCpfs9gts0Xl9f0J95_BNA",
+  "newPassword": "12345678"
+}
+
+
+### get profile
+GET http://127.0.0.1:3000/profile
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTAsImVtYWlsIjoiZGV2QG1haWwuY29tIiwiaWF0IjoxNzYyNTEyNDU3LCJleHAiOjE3NjUxMDQ0NTd9.RRhOBAySOtrktiRo4jOnbsDbvEp-X_swp8gQu5r-wtg
+
+### update profile
+PUT http://127.0.0.1:3000/profile
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTAsImVtYWlsIjoiZGV2QG1haWwuY29tIiwiaWF0IjoxNzYyNTEyNDU3LCJleHAiOjE3NjUxMDQ0NTd9.RRhOBAySOtrktiRo4jOnbsDbvEp-X_swp8gQu5r-wtg
+Content-Type: application/json
+
+{
+  "name": "Emmanuel",
+  "age": 16,
+  "field": "Backend"
+}
+
+
+### update profile
+PATCH http://127.0.0.1:3000/profile/change-password
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTAsImVtYWlsIjoiZGV2QG1haWwuY29tIiwiaWF0IjoxNzYyNTEyNDU3LCJleHAiOjE3NjUxMDQ0NTd9.RRhOBAySOtrktiRo4jOnbsDbvEp-X_swp8gQu5r-wtg
+Content-Type: application/json
+
+{
+  "oldPassword": "12345678",
+   "newPassword": "123456789"
+}

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - User Authentication</title>
+     <link rel="stylesheet" href="output.css">
+     <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-linear-to-br from-blue-50 to-indigo-100 min-h-screen">
+    
+    <!-- Alert Container -->
+    <div id="alertContainer" class="fixed top-4 right-4 z-50 space-y-2"></div>
+
+    <!-- Navigation Bar -->
+    <nav class="bg-white shadow-md">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <h1 class="text-2xl font-bold text-indigo-600">UserAuth</h1>
+            <div class="space-x-4">
+                <button onclick="window.location.href='profile.html'" class="text-gray-700 hover:text-indigo-600">Profile</button>
+                <button onclick="logout()" class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600">Logout</button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mx-auto px-4 py-8">
+        <div class="max-w-4xl mx-auto">
+            <div class="bg-white rounded-xl shadow-lg p-8 mb-6">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-3xl font-bold text-gray-800">My Profile</h2>
+                    <button onclick="toggleEditMode()" id="editBtn" 
+                            class="bg-indigo-600 text-white px-6 py-2 rounded-lg hover:bg-indigo-700 transition">
+                        Edit Profile
+                    </button>
+                </div>
+                
+                <!-- View Mode -->
+                <div id="viewMode" class="space-y-4">
+                    <div class="grid grid-cols-2 gap-6">
+                        <div>
+                            <p class="text-gray-600 text-sm">Name</p>
+                            <p id="displayName" class="text-xl font-semibold text-gray-800"></p>
+                        </div>
+                        <div>
+                            <p class="text-gray-600 text-sm">Email</p>
+                            <p id="displayEmail" class="text-xl font-semibold text-gray-800"></p>
+                        </div>
+                        <div>
+                            <p class="text-gray-600 text-sm">Age</p>
+                            <p id="displayAge" class="text-xl font-semibold text-gray-800"></p>
+                        </div>
+                        <div>
+                            <p class="text-gray-600 text-sm">Field</p>
+                            <p id="displayField" class="text-xl font-semibold text-gray-800"></p>
+                        </div>
+                        <div>
+                            <p class="text-gray-600 text-sm">Member Since</p>
+                            <p id="displayCreatedAt" class="text-xl font-semibold text-gray-800"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Edit Mode -->
+                <form id="editMode" style="display: none;" onsubmit="handleUpdateProfile(event)" class="space-y-4">
+                    <div class="grid grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-gray-700 font-medium mb-2">Name</label>
+                            <input type="text" id="editName" required 
+                                   class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 font-medium mb-2">Email (Cannot change)</label>
+                            <input type="email" id="editEmail" disabled 
+                                   class="w-full px-4 py-2 border border-gray-300 rounded-lg bg-gray-100">
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 font-medium mb-2">Age</label>
+                            <input type="number" id="editAge" min="0" required 
+                                   class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 font-medium mb-2">Field</label>
+                            <select id="editField" 
+                                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                                <option value="Backend">Backend</option>
+                                <option value="Frontend">Frontend</option>
+                                <option value="Fullstack">Fullstack</option>
+                                <option value="DevOps">DevOps</option>
+                                <option value="Data Science">Data Science</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="flex gap-4">
+                        <button type="submit" 
+                                class="flex-1 bg-green-600 text-white py-2 rounded-lg hover:bg-green-700 transition">
+                            Save Changes
+                        </button>
+                        <button type="button" onclick="toggleEditMode()" 
+                                class="flex-1 bg-gray-500 text-white py-2 rounded-lg hover:bg-gray-600 transition">
+                            Cancel
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Change Password Section -->
+            <div class="bg-white rounded-xl shadow-lg p-8">
+                <h3 class="text-2xl font-bold text-gray-800 mb-4">Change Password</h3>
+                <form onsubmit="handleChangePassword(event)" class="space-y-4">
+                    <div>
+                        <label class="block text-gray-700 font-medium mb-2">Old Password</label>
+                        <input type="password" id="oldPassword" required 
+                               class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 font-medium mb-2">New Password</label>
+                        <input type="password" id="newPassword" required minlength="8"
+                               class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                    </div>
+                    <button type="submit" 
+                            class="bg-indigo-600 text-white px-6 py-2 rounded-lg hover:bg-indigo-700 transition">
+                        Change Password
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="auth.js"></script>
+    <script>
+        // Load profile on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            loadProfile();
+        });
+    </script>
+</body>
+</html>
